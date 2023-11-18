@@ -1,65 +1,242 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<meta name="viewport" content="width=1000">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Endproject - 「엔드프로젝트」</title>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff">
-<link rel="stylesheet" type="text/css" href="stylesheet.css" media ="all">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
- <script type="application/javascript">
-    function resizeIFrameToFitContent( iFrame ) {
-        iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
-        iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
-    }
+    <title>END</title>
     
-    window.addEventListener('DOMContentLoaded', function(e) {
-        var iFrame = document.getElementByName('contents');
-        resizeIFrameToFitContent( iFrame );
-    }
-    );
-</script>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon/android-chrome-512x512.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" href="assets/favicon/favicon.ico">
+<link rel="manifest" href="assets/favicon/site.webmanifest">
+    <style>
 
+        @font-face {
+            font-family: 'BatangChe';
+            src: url('fonts/batangche.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'BatangChe';
+        }
+
+        body {
+            background-color: #000000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url('assets/loading_poster_pc_v2.png');
+            background-position: center;
+            background-repeat: none;
+            background-size: cover;
+        }
+
+        .container {
+            position: relative;
+            perspective: 70em;
+            text-align: center;
+            height: 100vh;
+        }
+
+        .card {
+            height: 19em;
+            width: 28.75em;
+            position: relative;
+            font-family: "Poppins", Sans-Serif;
+            animation: spin 5s infinite linear;
+            transform-style: preserve-3d;
+            margin-top: 3em;
+            margin-bottom: 2em;
+            pointer-events: none;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        .front,
+        .back {
+            height: 100%;
+            width: 100%;
+            border-radius: .6em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            backface-visibility: hidden;
+            filter: blur(2px);
+
+        }
+
+        .back {
+            position: relative;
+            transform: rotateY(180deg);
+            bottom: 100%;
+        }
+
+        h4 {
+            font-size: 1.5em;
+            font-weight: 100;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        button {
+            margin-top: 1.5em;
+            font-family: 'BatangChe';
+            width: 200px;
+            height: 50px;
+            font-size: 1.4em;
+            color: black;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+        }
+
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 10px; 
+        }
+
+        nav a {
+            color: white; 
+            text-decoration: none;
+            margin: 0 1em;
+            font-size: 0.9em;
+            line-height: 2.5em;
+        }
+
+        a {
+            cursor:pointer;
+        }
+
+        .endtitle {
+            width: 20em;
+            filter: invert(100%);
+            margin-bottom: 1em;
+            margin-top: 1em;
+            pointer-events: none;
+        }
+
+        footer {
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+        }
+
+
+        .brackets {
+            display: none;
+     
+        }
+
+        a:hover .brackets {
+            display: inline; 
+        }
+
+        .footer-text a {
+            color: white;
+        }
+
+
+
+        @media only screen and (max-width: 1036px) {
+    .card {
+    height: 12em;
+    width: 18.75em;
+    position: relative;
+    font-family: "Poppins", Sans-Serif;
+    animation: spin 5s infinite linear;
+    transform-style: preserve-3d;
+    margin: 3em auto 2em;
+    pointer-events: none;
+}
+
+footer {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+}
+
+    </style>
 </head>
-<body tabindex="0">
-<center>
-<h1><a href="home.html" target="contents">ENDPROJECT</a></h1>
-<table border=0 cellpadding=10 cellspacing=10 width=450em height=20em style="padding-bottom:5px;">
-<tr>
-<td width="33.33%" align="center">[<a href="manifesto.html" target="contents">manifesto</a>]</td>
-<td width="33.33%" align="center">[<a href="appendix.html" target="contents">appendix</a>]</td>
-<td width="33.33%" align="center">[<a href="mailto:contact@endproject.닷컴"_blank>contact</a>]</td>
-</tr>
-</table>
-<table border=0 cellpadding=3 cellspacing=3 width=900em height=20em>
-<tr>
-<td class="flash" colspan=2>
-<marquee direction ="left" scrollamount="10">You have reached the end of the internet
-</marquee></td>
-</tr>
-</table>
-</center>
-<!--
-<div id="chat" style="text-align:center;">
-<iframe src="https://chat.endproject.닷컴" width="900em" height="500em" style="border: none;padding-top:15px;"></iframe>
-</div>
--->
-<div id="contents" style="text-align:center;">
-<iframe name="contents" src="/home.html" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px";}(this));' style="height:200px;width:100%;border:none;overflow:hidden;">
-</iframe>
-</div>
+<body>
+    <div class="container">
+        <center><br>
+            <img class="endtitle" src="assets/title.png">
+        </center>
+        <h4>모든 끝은 새로운 시작이다</h4>
+        <nav>
+            <a href="#">Auditions</a>
+            <a href="#">Investors</a>
+            <a href="#">Bio</a>
+            <a href="#">Talent</a>
+            <a target="_blank" href="https://store.end.xn--mk1bu44c/">Store</a>
+            <a href="mailto:닷컴">Contact</a>
+        </nav>
+        <div class="card">
+            <img class="front"  id="frontImage" src="END IDs/Daniel.png" alt="Front Image">
+            <img class="back" src="card/back.png" alt="Back Image">
+        </div>
+        <a href="#"><button>Get your END ID</button></a>
+        <br>
+        <center>
+            <a target="_blank" href="https://viralpubliclicense.org/"><footer class="footer-text">Copyleft 2023 (ɔ) Every Night Dawns. All rights reserved.</a><br>
+            ❀</footer>
+        </center><br>
+    </div>
 
-<footer style="text-align: center;">
-<a href="https://viralpubliclicense.org/" target="_blank">VIRAL PUBLIC LICENSE<br />
-Copyleft (ɔ) All Rights Reserved</a>
-</footer>
+
+    <script>
+        const frontImages = ["END IDs Test/Daniel.png", "END IDs Test/Mari.png", "END IDs Test/Vincente.png", "END IDs Test/Yiro.png", "END IDs Test/Gustavo.png", "END IDs Test/Han.png", "END IDs Test/Carlos.png"];
+        let currentImageIndex = 0;
+    
+        function changeFrontImage() {
+            const frontImage = document.getElementById("frontImage");
+            frontImage.src = frontImages[currentImageIndex];
+    
+            currentImageIndex = (currentImageIndex + 1) % frontImages.length;
+        }
+    
+        setInterval(changeFrontImage, 200); 
+    </script>
+     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const anchorTags = document.querySelectorAll("nav a");
+
+            anchorTags.forEach(function(anchor) {
+                anchor.addEventListener("mouseover", function() {
+                    anchor.innerHTML = "「" + anchor.innerHTML + "」";
+                });
+
+                anchor.addEventListener("mouseout", function() {
+                    anchor.innerHTML = anchor.innerHTML.replace("「", "").replace("」", "");
+                });
+            });
+        });
+    </script>
 </body>
 </html>
