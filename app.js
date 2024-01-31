@@ -30,17 +30,17 @@ window.onload = async () => {
 
 const updateUI = async () => {
   const isAuthenticated = await auth0.isAuthenticated();
-  document.getElementById('login').style.display = isAuthenticated ? 'none' : 'block';
-  document.getElementById('logout').style.display = isAuthenticated ? 'block' : 'none';
+  document.getElementById('connect').style.display = isAuthenticated ? 'none' : 'block';
+  document.getElementById('disconnect').style.display = isAuthenticated ? 'block' : 'none';
 };
 
-document.getElementById('login').addEventListener('click', async () => {
+document.getElementById('connect').addEventListener('click', async () => {
   await auth0.loginWithRedirect({
     redirect_uri: window.location.origin
   });
 });
 
-document.getElementById('logout').addEventListener('click', async () => {
+document.getElementById('disconnect').addEventListener('click', async () => {
   auth0.logout({
     returnTo: window.location.origin
   });
