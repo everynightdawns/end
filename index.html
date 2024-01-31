@@ -81,8 +81,26 @@
             font-weight: var(--font-default-weight);
             src: local('ULP Custom'), url('https://ipfs.io/ipfs/QmYfTQRXy3vNttx5hFg8gA1HcxV5uYtEFhfXwQ8dLBDKGk/BatangChe.woff') format('woff');
         }
+        #connect, #disconnect {
+            font-family: 'ULP Custom', serif;
+            font-size: 16px; /* Example size, adjust as needed */
+            color: #FFFFFF; /* Font color, adjust as needed */
+            background-color: #000000; /* Button background color, adjust as needed */
+            border: 1px solid #ffffff;
+            padding: 20px; /* Adds padding inside the button, adjust as needed */
+            margin: 50px 0px 50px 0px;
+            cursor: pointer; /* Changes mouse cursor to pointer when hovering over the button */
+            border-radius: 0px; /* Optional: adds rounded corners to the button */
+        }
+        /* Optional: Change the appearance when hovering over the buttons */
+        #connect:hover, #disconnect:hover {
+            background-color: #222222; /* Darker background on hover, adjust as needed */
+        }
+        #connect:active, #disconnect:active {
+            background-color:#444444;
+        }
         body {
-            --font-family: 'ULP Custom', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
+            --font-family: 'ULP Custom', serif;
         }       
         html, :root {
             font-size: 24px;
@@ -176,53 +194,45 @@
         }
     </style>
     <noscript>
-    <style>
-    /* We use !important to override the default for js enabled */
-    /* If the display should be other than block, it should be defined specifically here */
-    .js-required { display: none !important; }
-    .no-js {
-        clip: auto;
-        clip-path: none;
-        height: auto;
-        overflow: auto;
-        position: static;
-        white-space: normal;
-        width: var(--prompt-width);
-    }
-    </style>
-</noscript>
+        <style>
+        /* We use !important to override the default for js enabled */
+        /* If the display should be other than block, it should be defined specifically here */
+        .js-required { display: none !important; }
+        .no-js {
+            clip: auto;
+            clip-path: none;
+            height: auto;
+            overflow: auto;
+            position: static;
+            white-space: normal;
+            width: var(--prompt-width);
+        }
+        </style>
+    </noscript>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js" defer></script>
+    <script src="app.js" defer></script>
 </head>
   
 <body>
-<div class="c649b4275 c8b66a73b">
-  
-<main class="c820dad1c login">
-  <section class="cb855d5ab _prompt-box-outer cb37656af">
-    <div class="c7b257881 c218b48ed">
-      
-    
-      <div class="c93505f61">
-        <header class="c97e25157 cf8dcb2d2">
-          <div title="END" id="custom-prompt-logo" style="width: auto !important; height: 60px !important; position: static !important; margin: auto !important; padding: 0 !important; background-color: transparent !important; background-position: center !important; background-size: contain !important; background-repeat: no-repeat !important"></div>
-        
-          <img class="c75eb9ac1 c7c13aa16" id="prompt-logo-center" src="https://ipfs.io/ipfs/QmcghQnNPF9SbgYVRiXcQjSefW5NrDnQrhBt9TpcuuXFx7/haruhwa.png" alt="END">
-        
-          
-            <h1 class="c6e09ac9a c6f4a1c53">EVERY NIGHT DAWNS</h1>
-          
-        
-          <div class="c8fd8dcc6 c155ae682">
-            
-              <p class="c125cb2bc cb45f2853">모든 끝은 새로운 시작이다</p>
-            
-          </div>
-        </header>
-      </div>
+    <div class="c649b4275 c8b66a73b">
+        <main class="c820dad1c login">
+        <section class="cb855d5ab _prompt-box-outer cb37656af">
+            <div class="c7b257881 c218b48ed">
+            <div class="c93505f61">
+                <header class="c97e25157 cf8dcb2d2">
+                <div title="END" id="custom-prompt-logo" style="width: auto !important; height: 60px !important; position: static !important; margin: auto !important; padding: 0 !important; background-color: transparent !important; background-position: center !important; background-size: contain !important; background-repeat: no-repeat !important"></div>
+                <img class="c75eb9ac1 c7c13aa16" id="prompt-logo-center" src="https://ipfs.io/ipfs/QmcghQnNPF9SbgYVRiXcQjSefW5NrDnQrhBt9TpcuuXFx7/haruhwa.png" alt="END">
+                    <h1 class="c6e09ac9a c6f4a1c53">EVERY NIGHT DAWNS</h1>
+                <div class="c8fd8dcc6 c155ae682">
+                    <p class="c125cb2bc cb45f2853">모든 끝은 새로운 시작이다</p>  
+                </div>
+                <button id="connect">Connect</button>
+                <button id="disconnect" style="display:none;">Disconnect</button>
+                </header>
+            </div>
+            </div>
+        </section>
+        </main>
     </div>
-  
-    
-  </section>
-</main>
-    </div>
-  </body>
+</body>
 </html>
