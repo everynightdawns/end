@@ -81,22 +81,30 @@
             font-weight: var(--font-default-weight);
             src: local('ULP Custom'), url('https://ipfs.io/ipfs/QmYfTQRXy3vNttx5hFg8gA1HcxV5uYtEFhfXwQ8dLBDKGk/BatangChe.woff') format('woff');
         }
-        #connect, #disconnect {
+        .button-container {
+            width: 100%; /* Ensures the container spans the full width */
+            display: flex; /* Uses Flexbox for centering */
+            justify-content: center; /* Centers child elements (the button) horizontally */
+            align-items: center; /* Centers child elements (the button) vertically, if needed */
+            margin-top: 0px;
+        }
+        button#login, button#logout {
+            width: 30%;
             font-family: 'ULP Custom', serif;
             font-size: 16px; /* Example size, adjust as needed */
             color: #FFFFFF; /* Font color, adjust as needed */
             background-color: #000000; /* Button background color, adjust as needed */
-            border: 1px solid #ffffff;
-            padding: 20px; /* Adds padding inside the button, adjust as needed */
-            margin: 50px 0px 50px 0px;
+            border: 2px solid #ffffff;
+            margin-top: 50px;
+            padding: 10px; /* Adds padding inside the button, adjust as needed */
             cursor: pointer; /* Changes mouse cursor to pointer when hovering over the button */
             border-radius: 0px; /* Optional: adds rounded corners to the button */
         }
         /* Optional: Change the appearance when hovering over the buttons */
-        #connect:hover, #disconnect:hover {
+        #login:hover, #logout:hover {
             background-color: #222222; /* Darker background on hover, adjust as needed */
         }
-        #connect:active, #disconnect:active {
+        #login:active, #logout:active {
             background-color:#444444;
         }
         body {
@@ -226,9 +234,11 @@
                 <div class="c8fd8dcc6 c155ae682">
                     <p class="c125cb2bc cb45f2853">모든 끝은 새로운 시작이다</p>  
                 </div>
-                <button id="connect">Connect</button>
-                <button id="disconnect" style="display:none;">Disconnect</button>
                 </header>
+                <div class="button-container">
+                    <button id="login">Log in</button>
+                    <button id="logout" style="display:none;">Log out</button>
+                </div>
             </div>
             </div>
         </section>
