@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>END</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="assets/favicon/favicon.ico">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <link rel="stylesheet" href="https://cdn.auth0.com/ulp/react-components/1.85.9/css/main.cdn.min.css">
+    <meta name="robots" content="noindex, nofollow">
+    <style id="custom-styles-container">
+        :root {
+            --primary-color: #ffffff;
+        }
+        :root {
+            --link-color: #ff0000;
+        }
+        :root {
+            --title-font-color: #ffffff;
+        }
+        :root {
+            --font-default-color: #ffffff;
+        }
+        :root {
+            --widget-background-color: #000000;
+        }
+        :root {
+            --box-border-color: #ffffff;
+        }
+        :root {
+            --font-light-color: #65676e;
+        }
+        :root {
+            --input-text-color: #000000;
+        }
+        :root {
+            --input-border-color: #ffffff;
+            --border-default-color: #ffffff;
+        }
+        :root {
+            --input-background-color: #ffffff;
+        }
+        :root {
+            --icon-default-color: #000000;
+        }
+        :root {
+            --error-color: #ff0000;
+            --error-text-color: #ffffff;
+        }
+        :root {
+            --success-color: #ffffff;
+        }
+        :root {
+            --base-focus-color: #ffffff;
+            --transparency-focus-color: rgba(255,255,255, 0.15);
+        }
+        :root {
+            --base-hover-color: #ffffff;
+            --transparency-hover-color: rgba(255,255,255, var(--hover-transparency-value));
+        }
+        .button-container {
+            width: 100%; /* Ensures the container spans the full width */
+            display: flex; /* Uses Flexbox for centering */
+            justify-content: center; /* Centers child elements (the button) horizontally */
+            align-items: center; /* Centers child elements (the button) vertically, if needed */
+            margin-top: 30px;
+        }
+        body {
+            --font-family: 'ULP Custom', serif;
+        }       
+        :root {
+            min-height: 100vh;
+            font-size: 24px;
+            --default-font-size: 24px;
+        }
+        html, body {
+            min-height: var(--prompt-min-height);
+            font-family: 'BatangChe';
+            font-size: 24px;
+            --default-font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        html {
+            padding: 80px;
+        }
+        body {
+            --title-font-size: 1.17rem;
+            --title-font-weight: normal;
+        }       
+        .c8fd8dcc6 {
+            font-size: 0.7rem;
+            font-weight: normal;
+        }       
+        .c334b2f05 {
+            font-size: 0.875rem;
+            font-weight: normal;
+        }
+        .ulp-passkey-benefit-heading {
+            font-size: 1.025rem;
+        }       
+        .c9302c1bc, .c387a7712 {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+        body {
+            --ulp-label-font-size: 1rem;
+            --ulp-label-font-weight: normal;
+        }       
+        .ceb8e99ba, .c7f55554e, [id^='ulp-container-'] a {
+            font-size: 0.875rem;
+            font-weight: normal !important;
+        }
+        :root {
+            --input-border-width: 1px;
+        }        
+        body {
+            --input-border-radius: 0px;
+        }       
+        :root {
+            --border-radius-outer: 0px;
+        }       
+        :root {
+            --box-border-width: 0px;
+        }        
+        body {
+            --shadow-component-outer: none;
+        }        
+        body {
+            --logo-alignment: 0 auto;
+        }       
+        .c75eb9ac1 {
+            content: url('https://ipfs.io/ipfs/QmeEaVVt8YQ397SuzdzU4mV62rYCPJNiqC1Xt7urTWAHXc/END%20-%20END%20Logo.png');
+        }        
+        body {
+            --logo-height: 100px;
+        }
+        .c75eb9ac1 {
+            height: var(--logo-height);
+        }        
+        body {
+            --header-alignment: center;
+        }
+        .c8b66a73b {
+            --page-background-alignment: center;
+        }
+        body {
+            --page-background-color: #000000;
+        }
+        /* By default, hide features for javascript-disabled browsing */
+        /* We use !important to override any css with higher specificity */
+        /* It is also overriden by the styles in <noscript> in the header file */
+        .no-js {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+        }
+        @font-face {
+            font-family: 'BatangChe';
+            src: url('fonts/batangche.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+    
+        body {
+            background-color: #000000;
+            color: white;
+        }
+    
+        .container {
+            margin: 5vh auto;
+            text-align: center;
+            max-width: 100%; /* Prevents the container from getting too wide */
+        }
+
+        .form-group {
+            margin: 0px 0px 0px 0px;
+            text-align: center; /* Align items to the left */
+        }
+
+        button#uploadBtn {
+            font-family: 'BatangChe', serif;
+            /* Additional button styling */
+            background-color: #ffffff; /* Example background color */
+            color: #000000; /* Text color */
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 30%;
+        }
+        
+        /* Style for displaying selected file name */
+        #urlRule {
+            color: #666666;
+            font-size: .5rem;
+            font-weight: bold;
+            font-family: 'BatangChe', serif;
+            /* Additional styling as needed */
+        }
+
+        #usernameRule {
+            color: #666666;
+            font-size: .5rem;
+            font-weight: bold;
+            font-family: 'BatangChe', serif;
+            /* Additional styling as needed */
+        }
+        
+        .form-group label {
+            font-size: .9rem;
+            /* Other label styles */
+        }
+        
+        /* Styles for custom file upload label */
+        .custom-file-upload {
+            font-size: .75rem;
+            /* Additional styling to match your design */
+        }
+        
+        input[type="text"],
+        input[type="url"] {
+            font-family: 'BatangChe', serif;
+            font-size: .7rem; /* Adjust font size as needed */
+            color: #000000; /* Text color */
+            /* Additional styling for inputs */
+        }
+
+        .form-element {
+            margin: 20px 0px 20px 0px;
+        }
+    
+        h1 {
+            font-size: 1.7rem;
+            font-weight: 100;
+            font-family: 'BatangChe';
+    
+        }
+    
+        a {
+            text-decoration: none;
+            color: black;
+            cursor:pointer;
+        }
+        button {
+            width: 37%;
+            font-family: 'BatangChe', serif;
+            font-size: 16px; /* Example size, adjust as needed */
+            color: #FFFFFF; /* Font color, adjust as needed */
+            background-color: #000000; /* Button background color, adjust as needed */
+            border: 2px solid #ffffff;
+            padding: 10px; /* Adds padding inside the button, adjust as needed */
+            cursor: pointer; /* Changes mouse cursor to pointer when hovering over the button */
+            border-radius: 0px; /* Optional: adds rounded corners to the button */
+        }
+        /* Optional: Change the appearance when hovering over the buttons */
+        button:hover {
+            background-color: #222222; /* Darker background on hover, adjust as needed */
+        }
+        button:active {
+            background-color:#444444;
+        }
+    </style>
+    <noscript>
+        <style>
+        /* We use !important to override the default for js enabled */
+        /* If the display should be other than block, it should be defined specifically here */
+        .js-required { display: none !important; }
+        .no-js {
+            clip: auto;
+            clip-path: none;
+            height: auto;
+            overflow: auto;
+            position: static;
+            white-space: normal;
+            width: var(--prompt-width);
+        }
+        </style>
+    </noscript>
+</head>
+  
+<body>
+    <div class="c649b4275 c8b66a73b">
+        <main class="c820dad1c login">
+        <section class="cb855d5ab _prompt-box-outer cb37656af">
+            <div class="c7b257881 c218b48ed">
+            <div class="c93505f61">
+                <header class="c97e25157 cf8dcb2d2">
+                <h1>REGISTRATION</h1>
+                <form id="profile-form">
+                    <div class="form-group">
+                        <div><label for="username">Username</label></div>
+                        <input type="text" id="username" name="username" required>
+                        <div><span id="usernameRule">(e.g. example)</span></div>
+                    </div>
+                    <div class="form-group">
+                        <div><label for="imageURL">Image Address</label></div>
+                        <input type="url" id="imageURL" name="imageURL" required>
+                        <div><span id="urlRule">(e.g. https://example.com/image.png)</span></div>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+                </header>
+            </div>
+            </div>
+        </section>
+        </main>
+    </div>     
+</body>
+</html>
