@@ -57,12 +57,12 @@ const updateUI = async () => {
 
 document.getElementById('login').addEventListener('click', async () => {
   await auth0.loginWithRedirect({
-    redirect_uri: 'https://end.xn--mk1bu44c'
+    redirect_uri: window.location.origin
   });
 });
 
 document.getElementById('logout').addEventListener('click', async () => {
   auth0.logout({
-    returnTo: 'https://end.xn--mk1bu44c'
+    returnTo: window.location.origin
   });
 });
