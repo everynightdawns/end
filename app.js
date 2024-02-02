@@ -30,12 +30,13 @@ window.onload = async () => {
 
 const updateUI = async () => {
   const isAuthenticated = await auth0.isAuthenticated();
-
   const loginBtn = document.getElementById('login');
   const logoutBtn = document.getElementById('logout');
-  
-  loginBtn.style.display = isAuthenticated ? 'none' : 'block';
-  logoutBtn.style.display = isAuthenticated ? 'block' : 'none';
+
+  if (loginBtn && logoutBtn) {
+      loginBtn.style.display = isAuthenticated ? 'none' : 'block';
+      logoutBtn.style.display = isAuthenticated ? 'block' : 'none';
+  }
 
   if (isAuthenticated) {
     // Fetch the user profile
@@ -55,14 +56,20 @@ const updateUI = async () => {
   }
 };
 
-document.getElementById('login').addEventListener('click', async () => {
-  await auth0.loginWithRedirect({
-    redirect_uri: window.location.origin
-  });
-});
+const loginBtn = document.getElementById('login');
+if (loginBtn) {
+    loginBtn.addEventListener('click', async () => {
+        await auth0.loginWithRedirect({
+            redirect_uri: window.location.origin
+        });
+    });
+}
 
-document.getElementById('logout').addEventListener('click', async () => {
-  auth0.logout({
-    returnTo: window.location.origin
-  });
-});
+const logoutBtn = document.getElementById('logout');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+        auth0.logout({
+            returnTo: window.location.origin
+        });
+    });
+}
