@@ -30,8 +30,29 @@ window.onload = async () => {
 
 const updateUI = async () => {
   const isAuthenticated = await auth0.isAuthenticated();
-  document.getElementById('login').style.display = isAuthenticated ? 'none' : 'block';
-  document.getElementById('logout').style.display = isAuthenticated ? 'block' : 'none';
+
+  const loginBtn = document.getElementById('login');
+  const logoutBtn = document.getElementById('logout');
+  
+  loginBtn.style.display = isAuthenticated ? 'none' : 'block';
+  logoutBtn.style.display = isAuthenticated ? 'block' : 'none';
+
+  if (isAuthenticated) {
+    // Fetch the user profile
+    const userProfile = await auth0.getUser();
+    // Check if the registration is completed
+    const registrationCompleted = userProfile['https://end.xn--mk1bu44c/user_metadata'].registrationCompleted;
+
+    if (registrationCompleted) {
+      // User is authenticated and registration is completed
+      // Show the main content or redirect to the main page
+      window.location.href = 'https://end.xn--mk1bu44c/main.html'; // Replace with the path to your main content
+    } else {
+      // User is authenticated but registration is not completed
+      // Redirect to the registration page
+      window.location.href = 'https://end.xn--mk1bu44c/registration.html';
+    }
+  }
 };
 
 document.getElementById('login').addEventListener('click', async () => {
