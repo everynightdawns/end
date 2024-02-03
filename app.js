@@ -10,21 +10,22 @@ const configureClient = async () => {
 
 window.onload = async () => {
   await configureClient();
-  updateUI();
-  // Check for the code and state parameters
+  
+  // New: Check the authentication state before handling the redirect callback
+  let isAuthenticated = await auth0.isAuthenticated();
   const query = window.location.search;
+  
   if (query.includes("code=") && query.includes("state=")) {
     // Process the login state
     await auth0.handleRedirectCallback();
-    // Use replaceState to redirect the user away and remove the querystring parameters
-    window.history.replaceState({}, document.title, "/");
+    isAuthenticated = await auth0.isAuthenticated(); // Update the isAuthenticated variable
+    window.history.replaceState({}, document.title, window.location.pathname); // Use pathname to maintain the base path
   }
-  // Check if the user is authenticated
-  await checkAuthentication();
+
+  updateUI(isAuthenticated); // Pass isAuthenticated as a parameter to updateUI
 };
 
-const updateUI = async () => {
-  const isAuthenticated = await auth0.isAuthenticated();
+const updateUI = async (isAuthenticated) => {
   const loginBtn = document.getElementById('login');
   const logoutBtn = document.getElementById('logout');
 
@@ -34,31 +35,19 @@ const updateUI = async () => {
   }
 
   if (isAuthenticated) {
-    const idTokenClaims = await auth0.getIdTokenClaims();
-    // Check if the registrationCompleted custom claim is present
-    const registrationCompleted = idTokenClaims['https://end.xn--mk1bu44c/user_metadata/registrationCompleted'];
-    
+    // Fetch the user profile to check for registrationCompleted status
+    const userProfile = await auth0.getUser();
+    const registrationCompleted = userProfile['https://end.xn--mk1bu44c/user_metadata']?.registrationCompleted;
+
     if (registrationCompleted) {
-      // User is authenticated and registration is completed
       window.location.href = 'https://end.xn--mk1bu44c/index.html';
     } else {
-      // User is authenticated but registration is not completed
       window.location.href = 'https://end.xn--mk1bu44c/registration.html';
     }
   }
 };
 
-const checkAuthentication = async () => {
-  const isAuthenticated = await auth0.isAuthenticated();
-  if (!isAuthenticated) {
-    console.log("User is not authenticated");
-    // Show the login button or redirect to the login page
-  } else {
-    console.log("User is authenticated");
-    // The user is authenticated, you can proceed with authenticated user flow
-    updateUI(); // Call updateUI here to handle the authenticated user state.
-  }
-};
+// Removed the redundant checkAuthentication function, as its logic is now integrated into window.onload
 
 const loginBtn = document.getElementById('login');
 if (loginBtn) {
@@ -71,7 +60,7 @@ if (loginBtn) {
 
 const logoutBtn = document.getElementById('logout');
 if (logoutBtn) {
-  logoutBtn.addEventListener('click', async () => {
+  logoutBtn.addEventListener('click', () => {
     auth0.logout({
       returnTo: window.location.origin,
     });
