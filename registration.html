@@ -326,7 +326,7 @@
         </main>
     </div>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
     <script>
         // Keep this function to extract userId from URL parameters
         function getQueryParamByName(name) {
@@ -343,16 +343,15 @@
                 return; // Exit early if user ID is not present
             }
       
-            document.getElementById('profile-form').addEventListener('submit', async function(event) {
-                event.preventDefault(); // Prevent default form submission
-      
-                const username = document.getElementById('username').value;
-                const imageURL = document.getElementById('imageURL').value;
-      
-                if (!await auth0.isAuthenticated()) {
-                    alert("You are not logged in. Please log in to proceed.");
-                    return; // Exit the function if not authenticated
-                }
+            document.addEventListener('DOMContentLoaded', async () => {
+                document.getElementById('profile-form').addEventListener('submit', async function(event) {
+                    event.preventDefault();
+                    
+                    const isAuthenticated = await auth0.isAuthenticated();
+                    if (!isAuthenticated) {
+                        alert("You are not logged in. Please log in to proceed.");
+                        return; // Stop the function if not authenticated
+                    }            
       
                 try {
                     const accessToken = await auth0.getTokenSilently();
