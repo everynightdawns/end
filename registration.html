@@ -329,61 +329,61 @@
     <script src="app.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-          // Wait for app.js to initialize auth0 before attaching the event listener to the form
-          const waitForAuth0 = () => new Promise((resolve) => {
-            const checkAuth0Interval = setInterval(() => {
-              if (window.auth0) {
-                clearInterval(checkAuth0Interval);
-                resolve();
-              }
-            }, 100); // Check every 100ms
-          });
-      
-          await waitForAuth0(); // Ensure auth0 is available
-      
-          document.getElementById('profile-form').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent default form submission
-      
-            const username = document.getElementById('username').value;
-            const imageURL = document.getElementById('imageURL').value;
-            
-            // Check if the user is authenticated before trying to submit the form data
-            const isAuthenticated = await auth0.isAuthenticated();
-            if (!isAuthenticated) {
-              alert("You are not logged in. Please log in to proceed.");
-              return; // Prevent form submission if the user is not authenticated
-            }
-      
-            try {
-              // Attempt to get the access token silently
-              const accessToken = await auth0.getTokenSilently();
-              // Proceed to submit the form data with the access token
-              await submitFormData(username, imageURL, accessToken);
-            } catch (error) {
-              console.error('Error during registration:', error);
-              alert('Error during registration. Please try again. ' + error.message);
-            }
-          });
-      
-          async function submitFormData(username, imageURL, accessToken) {
-            const response = await fetch(`https://everynightdawns.netlify.app/.netlify/functions/updateMetadata`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`,
-              },
-              body: JSON.stringify({ username, imageURL }) // Assuming userID is handled within your endpoint
+            const waitForAuth0 = () => new Promise((resolve) => {
+                const checkAuth0Interval = setInterval(() => {
+                    if (window.auth0) {
+                        clearInterval(checkAuth0Interval);
+                        resolve();
+                    }
+                }, 100); // Check every 100ms
             });
-      
-            const data = await response.json();
-            if (data.registrationCompleted) {
-              // Redirect to the main page upon successful registration
-              window.location.href = 'https://end.xn--mk1bu44c/index.html';
-            } else {
-              alert('Registration failed. Please try again.');
+        
+            await waitForAuth0(); // Ensure auth0 is available
+        
+            document.getElementById('profile-form').addEventListener('submit', async function(event) {
+                event.preventDefault(); // Prevent default form submission
+        
+                const username = document.getElementById('username').value;
+                const imageURL = document.getElementById('imageURL').value;
+        
+                // Check if the user is authenticated before trying to submit the form data
+                const isAuthenticated = await auth0.isAuthenticated();
+                if (!isAuthenticated) {
+                    alert("You are not logged in. Please log in to proceed.");
+                    return; // Prevent form submission if the user is not authenticated
+                }
+        
+                try {
+                    // Attempt to get the access token silently
+                    const accessToken = await auth0.getTokenSilently();
+                    // Proceed to submit the form data with the access token
+                    await submitFormData(username, imageURL, accessToken);
+                } catch (error) {
+                    console.error('Error during registration:', error);
+                    alert('Error during registration. Please try again. ' + error.message);
+                }
+            });
+        
+            async function submitFormData(username, imageURL, accessToken) {
+                // Replace the URL with your actual endpoint URL
+                const response = await fetch(`https://everynightdawns.netlify.app/.netlify/functions/updateMetadata`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`,
+                    },
+                    body: JSON.stringify({ username, imageURL }) // Assuming userID is handled within your endpoint
+                });
+        
+                const data = await response.json();
+                if (data.registrationCompleted) {
+                    // Redirect to the main page upon successful registration
+                    window.location.href = 'https://end.xn--mk1bu44c/index.html';
+                } else {
+                    alert('Registration failed. Please try again.');
+                }
             }
-          }
         });
-    </script>
+    </script>        
 </body>
 </html>
