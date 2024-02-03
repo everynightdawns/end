@@ -47,7 +47,7 @@ const updateUI = async () => {
     if (registrationCompleted) {
       // User is authenticated and registration is completed
       // Show the main content or redirect to the main page
-      window.location.href = 'https://end.xn--mk1bu44c/main.html'; // Replace with the path to your main content
+      window.location.href = 'https://end.xn--mk1bu44c/index.html'; // Replace with the path to your main content
     } else {
       // User is authenticated but registration is not completed
       // Redirect to the registration page
