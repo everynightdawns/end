@@ -328,6 +328,11 @@
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
     <script src="app.js" defer></script>
     <script>
+        function getQueryParamByName(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
             let userId = getQueryParamByName('user_id');
             console.log("Extracted User ID:", userId);
