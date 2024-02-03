@@ -348,18 +348,18 @@
         
           document.getElementById('profile-form').addEventListener('submit', async function(event) {
             event.preventDefault(); // Prevent the form from submitting normally
-
+          
             const username = document.getElementById('username').value;
             const imageURL = document.getElementById('imageURL').value;
-
+          
             try {
               if (!await window.auth0.isAuthenticated()) {
                 alert("You are not logged in. Please log in to proceed.");
                 return; // Check if user is authenticated
               }
-
+          
               const accessToken = await window.auth0.getTokenSilently();
-              await submitFormData(event, username, imageURL, accessToken);
+              await submitFormData(username, imageURL, accessToken);
             } catch (error) {
               console.error('Error during registration:', error);
               alert('Error during registration. Please try again. ' + error.message);
@@ -373,10 +373,10 @@
           return urlParams.get(name);
         }
         
-        async function submitFormData(event, username, imageURL, accessToken) {
+        async function submitFormData(username, imageURL, accessToken) {
             const user = await auth0.getUser();
             const userId = user.sub; // Get the user's ID from their profile
-  
+          
             const response = await fetch(`https://everynightdawns.netlify.app/.netlify/functions/updateMetadata`, {
               method: 'POST',
               headers: {
@@ -385,7 +385,7 @@
               },
               body: JSON.stringify({ userId, username, imageURL })
             });
-  
+          
             const data = await response.json();
             if (data.registrationCompleted) {
               window.location.href = 'https://end.xn--mk1bu44c/index.html'; // Successful registration
