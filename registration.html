@@ -328,62 +328,45 @@
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
     <script src="app.js" defer></script>
     <script>
-        // Function to get query parameter value by name
-        function getQueryParamByName(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
-        
-        let userId; // Declare userId at a scope accessible to both onload and form submit handler
-        
-        window.onload = function() {
+        let userId; // Move declaration to a wider scope if not already
+    
+        document.addEventListener('DOMContentLoaded', (event) => {
             userId = getQueryParamByName('user_id'); // Extract the user_id from URL parameters
-            console.log("Extracted User ID:", userId); // For debugging
+            console.log("User ID obtained:", userId); // Debugging
+    
             if (!userId) {
                 alert("User ID is missing. Please ensure you're properly logged in.");
-                // Optionally, redirect the user back to login page or show an error message
+                // Consider disabling the submit button or redirecting
             }
-        };
-        
-        // Add event listener for form submission
+        });
+    
         document.getElementById('profile-form').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent the default form submission
-            
+            event.preventDefault(); // Prevent default form submission
+    
+            // Re-confirm user ID presence
+            if (!userId) {
+                alert("User ID is missing. Please ensure you're properly logged in.");
+                return; // Stop function execution
+            }
+    
             const username = document.getElementById('username').value;
             const imageURL = document.getElementById('imageURL').value;
-            
-            if (!userId) {
-                alert("User ID is missing. Please ensure you're properly logged in.");
-                return; // Exit the function if userId is missing
-            }
-        
+    
+            // Proceed with fetch operation
             try {
                 const response = await fetch(`https://everynightdawns.netlify.app/.netlify/functions/updateMetadata`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ userId, username, imageURL })
                 });
-        
+    
                 const data = await response.json();
-        
-                if (data.registrationCompleted) {
-                    // Perform a silent authentication to refresh the user's authentication state
-                    await auth0.getTokenSilently();
-                    // Update UI after silent authentication
-                    updateUI();
-                    // Redirect to main content
-                    window.location.href = 'https://end.xn--mk1bu44c/main.html';
-                } else {
-                    // Handle case where registration is not completed successfully
-                    alert('Registration failed. Please try again.');
-                }
+                // Handle response
             } catch (error) {
                 console.error('Error during registration:', error);
                 alert('Error during registration. Please try again. ' + error);
             }
         });
-    </script>                   
+    </script>                     
 </body>
 </html>
