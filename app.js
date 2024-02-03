@@ -4,7 +4,7 @@ const configureClient = async () => {
   auth0 = await createAuth0Client({
     domain: "dev-8t5n46gy508lquxf.us.auth0.com",
     client_id: "SkZvNHKTNnL4eX1VGEziFbZYM5aFKlS8",
-    redirect_uri: 'https://end.xn--mk1bu44c',
+    redirect_uri: window.location.origin,
   });
 };
 
@@ -53,7 +53,7 @@ const loginBtn = document.getElementById('login');
 if (loginBtn) {
   loginBtn.addEventListener('click', async () => {
     await auth0.loginWithRedirect({
-      redirect_uri: 'https://end.xn--mk1bu44c',
+      redirect_uri: window.location.origin,
     });
   });
 }
@@ -62,7 +62,7 @@ const logoutBtn = document.getElementById('logout');
 if (logoutBtn) {
   logoutBtn.addEventListener('click', () => {
     auth0.logout({
-      returnTo: 'https://end.xn--mk1bu44c',
+      returnTo: window.location.origin,
     });
   });
 }
