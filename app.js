@@ -8,46 +8,47 @@ const configureClient = async () => {
   });
 };
 
+const updateUI = async () => {
+  const isAuthenticated = await auth0.isAuthenticated();
+  const loginBtn = document.getElementById('login');
+  const logoutBtn = document.getElementById('logout');
+  
+  if (isAuthenticated) {
+    const userProfile = await auth0.getUser();
+    const registrationCompleted = userProfile['https://end.xn--mk1bu44c/user_metadata']?.registrationCompleted;
+
+    if (!registrationCompleted && window.location.pathname !== "/registration.html") {
+      // Redirect to registration if not completed, but not if already on registration page
+      window.location.href = 'https://end.xn--mk1bu44c/registration.html';
+      return; // Exit function to avoid further UI updates until redirection completes
+    }
+
+    if (registrationCompleted) {
+      // Redirect to the main page if registration is completed
+      window.location.href = 'https://end.xn--mk1bu44c/index.html';
+      return; // Exit function to avoid further UI updates until redirection completes
+    }
+  }
+
+  // Update UI elements based on authentication status
+  if (loginBtn && logoutBtn) {
+    loginBtn.style.display = isAuthenticated ? 'none' : 'block';
+    logoutBtn.style.display = isAuthenticated ? 'block' : 'none';
+  }
+};
+
 window.onload = async () => {
   await configureClient();
-  
-  // New: Check the authentication state before handling the redirect callback
-  let isAuthenticated = await auth0.isAuthenticated();
   const query = window.location.search;
   
   if (query.includes("code=") && query.includes("state=")) {
     // Process the login state
     await auth0.handleRedirectCallback();
-    isAuthenticated = await auth0.isAuthenticated(); // Update the isAuthenticated variable
-    window.history.replaceState({}, document.title, window.location.pathname); // Use pathname to maintain the base path
+    window.history.replaceState({}, document.title, window.location.pathname);
   }
 
-  updateUI(isAuthenticated); // Pass isAuthenticated as a parameter to updateUI
+  await updateUI();
 };
-
-const updateUI = async (isAuthenticated) => {
-  const loginBtn = document.getElementById('login');
-  const logoutBtn = document.getElementById('logout');
-
-  if (loginBtn && logoutBtn) {
-    loginBtn.style.display = isAuthenticated ? 'none' : 'block';
-    logoutBtn.style.display = isAuthenticated ? 'block' : 'none';
-  }
-
-  if (isAuthenticated) {
-    // Fetch the user profile to check for registrationCompleted status
-    const userProfile = await auth0.getUser();
-    const registrationCompleted = userProfile['https://end.xn--mk1bu44c/user_metadata']?.registrationCompleted;
-
-    if (registrationCompleted) {
-      window.location.href = 'https://end.xn--mk1bu44c/index.html';
-    } else {
-      window.location.href = 'https://end.xn--mk1bu44c/registration.html';
-    }
-  }
-};
-
-// Removed the redundant checkAuthentication function, as its logic is now integrated into window.onload
 
 const loginBtn = document.getElementById('login');
 if (loginBtn) {
