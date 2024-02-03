@@ -6,7 +6,14 @@ const configureClient = async () => {
     client_id: "SkZvNHKTNnL4eX1VGEziFbZYM5aFKlS8",
     redirect_uri: window.location.origin,
   });
+  // Attach the auth0 client instance to the window object to make it globally accessible
+  window.auth0 = auth0;
 };
+
+// Ensure configureClient is called when the script loads
+configureClient().then(() => {
+  console.log("Auth0 client has been initialized and attached to window.auth0");
+});
 
 const updateUI = async () => {
   const isAuthenticated = await auth0.isAuthenticated();
