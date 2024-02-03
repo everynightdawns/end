@@ -328,43 +328,49 @@
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
     <script src="app.js" defer></script>
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-          // Wait for auth0 to be initialized by app.js
-          const waitForAuth0 = () => new Promise(resolve => {
-            const checkAuth0Interval = setInterval(() => {
+        async function init() {
+          // Wait for the auth0 client to be initialized by app.js
+          await new Promise(resolve => {
+            const checkAuth0Init = setInterval(() => {
               if (window.auth0) {
-                clearInterval(checkAuth0Interval);
+                clearInterval(checkAuth0Init);
                 resolve();
               }
-            }, 100); // Check every 100ms
+            }, 100); // Check every 100 milliseconds
           });
         
-          await waitForAuth0(); // Ensure auth0 is available
+          // Proceed with your script logic after auth0 is available
+          const userId = getQueryParamByName('user_id');
+          if (!userId) {
+            alert("User ID is missing. Please ensure you're properly logged in.");
+            return; // Ensure there's a user ID to work with
+          }
         
-          // Now that auth0 is available, set up form submission
           document.getElementById('profile-form').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); // Prevent the form from submitting normally
         
             const username = document.getElementById('username').value;
             const imageURL = document.getElementById('imageURL').value;
         
-            // Use the global function from app.js to check authentication
-            const isAuthenticated = await window.checkUserAuthentication();
-            if (!isAuthenticated) {
-              alert("You are not logged in. Please log in to proceed.");
-              return; // Exit the function if not authenticated
-            }
-        
-            // Try to get the token silently now that we've checked for authentication
             try {
-              const accessToken = await auth0.getTokenSilently();
+              if (!await window.auth0.isAuthenticated()) {
+                alert("You are not logged in. Please log in to proceed.");
+                return; // Check if user is authenticated
+              }
+        
+              const accessToken = await window.auth0.getTokenSilently();
               await submitFormData(userId, username, imageURL, accessToken);
             } catch (error) {
               console.error('Error during registration:', error);
               alert('Error during registration. Please try again. ' + error.message);
             }
           });
-        });
+        }
+        
+        function getQueryParamByName(name) {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(name);
+        }
         
         async function submitFormData(userId, username, imageURL, accessToken) {
           const response = await fetch(`https://everynightdawns.netlify.app/.netlify/functions/updateMetadata`, {
@@ -378,11 +384,14 @@
         
           const data = await response.json();
           if (data.registrationCompleted) {
-            window.location.href = 'https://end.xn--mk1bu44c/index.html'; // Redirect on success
+            window.location.href = 'https://end.xn--mk1bu44c/index.html'; // Successful registration
           } else {
             alert('Registration failed. Please try again.');
           }
         }
+        
+        // Initialize everything once the entire page is loaded, to ensure auth0 is available
+        window.onload = init;
     </script>        
 </body>
 </html>
