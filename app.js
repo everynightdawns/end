@@ -10,7 +10,23 @@ const configureClient = async () => {
 
 window.onload = async () => {
   await configureClient();
-  // Call checkAuthentication here to verify if the user is authenticated
+
+  // Check for the code and state parameters indicating a redirect from Auth0
+  const query = window.location.search;
+  if (query.includes("code=") && query.includes("state=")) {
+    // Process the login state
+    try {
+      await auth0.handleRedirectCallback();
+      console.log("Authentication successful!");
+      // Optionally, redirect the user or update the application state here
+    } catch (err) {
+      console.error("Error handling the redirect callback:", err);
+    }
+    // Clean the query parameters
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  // Now check if the user is authenticated
   await checkAuthentication();
   updateUI();
 };
