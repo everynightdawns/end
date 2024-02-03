@@ -343,15 +343,16 @@
                 return; // Exit early if user ID is not present
             }
       
-            document.addEventListener('DOMContentLoaded', async () => {
-                document.getElementById('profile-form').addEventListener('submit', async function(event) {
-                    event.preventDefault();
-                    
-                    const isAuthenticated = await auth0.isAuthenticated();
-                    if (!isAuthenticated) {
-                        alert("You are not logged in. Please log in to proceed.");
-                        return; // Stop the function if not authenticated
-                    }            
+            document.getElementById('profile-form').addEventListener('submit', async function(event) {
+                event.preventDefault(); // Prevent default form submission
+      
+                const username = document.getElementById('username').value;
+                const imageURL = document.getElementById('imageURL').value;
+      
+                if (!await auth0.isAuthenticated()) {
+                    alert("You are not logged in. Please log in to proceed.");
+                    return; // Exit the function if not authenticated
+                }
       
                 try {
                     const accessToken = await auth0.getTokenSilently();
