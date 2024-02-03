@@ -10,22 +10,9 @@ const configureClient = async () => {
 
 window.onload = async () => {
   await configureClient();
-  // Update UI state based on user authentication
+  // Call checkAuthentication here to verify if the user is authenticated
+  await checkAuthentication();
   updateUI();
-  const isAuthenticated = await auth0.isAuthenticated();
-  if (isAuthenticated) {
-    // show the gated content
-    return;
-  }
-  // Check for the code and state parameters
-  const query = window.location.search;
-  if (query.includes("code=") && query.includes("state=")) {
-    // Process the login state
-    await auth0.handleRedirectCallback();
-    updateUI();
-    // Use replaceState to redirect the user away and remove the querystring parameters
-    window.history.replaceState({}, document.title, "/");
-  }
 };
 
 const updateUI = async () => {
@@ -34,25 +21,36 @@ const updateUI = async () => {
   const logoutBtn = document.getElementById('logout');
 
   if (loginBtn && logoutBtn) {
-      loginBtn.style.display = isAuthenticated ? 'none' : 'block';
-      logoutBtn.style.display = isAuthenticated ? 'block' : 'none';
+    loginBtn.style.display = isAuthenticated ? 'none' : 'block';
+    logoutBtn.style.display = isAuthenticated ? 'block' : 'none';
   }
 
   if (isAuthenticated) {
     // Fetch the user profile
     const userProfile = await auth0.getUser();
     // Check if the registration is completed
-    const registrationCompleted = userProfile['https://end.xn--mk1bu44c/user_metadata'].registrationCompleted;
+    const registrationCompleted = userProfile['https://end.xn--mk1bu44c/user_metadata']?.registrationCompleted;
 
     if (registrationCompleted) {
       // User is authenticated and registration is completed
-      // Show the main content or redirect to the main page
-      window.location.href = 'https://end.xn--mk1bu44c/index.html'; // Replace with the path to your main content
+      window.location.href = 'https://end.xn--mk1bu44c/index.html';
     } else {
       // User is authenticated but registration is not completed
-      // Redirect to the registration page
       window.location.href = 'https://end.xn--mk1bu44c/registration.html';
     }
+  }
+};
+
+const checkAuthentication = async () => {
+  const isAuthenticated = await auth0.isAuthenticated();
+  if (!isAuthenticated) {
+    // Handle unauthenticated user here. For example, redirect to login page or show a login button.
+    console.log("User is not authenticated");
+    // Optional: Redirect to login
+    // window.location.href = 'https://end.xn--mk1bu44c/login.html'; // Adjust URL as needed
+  } else {
+    console.log("User is authenticated");
+    // Optional: Proceed with authenticated user flow
   }
 };
 
