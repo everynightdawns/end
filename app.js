@@ -67,3 +67,8 @@ if (logoutBtn) {
     });
   });
 }
+
+// Global function to check if the user is authenticated
+window.checkUserAuthentication = async () => {
+  return await auth0.isAuthenticated();
+};
