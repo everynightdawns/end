@@ -335,33 +335,43 @@
         }
       
         document.addEventListener('DOMContentLoaded', async () => {
-            let userId = getQueryParamByName('user_id'); // Use this function to get userId
-            console.log("Extracted User ID:", userId);
-      
-            if (!userId) {
-                alert("User ID is missing. Please ensure you're properly logged in.");
-                return; // Exit early if user ID is not present
+            // Check if auth0 is defined
+            if (typeof auth0 !== "undefined") {
+                console.log("auth0 is defined");
+                // auth0-dependent code can safely run here
+    
+                let userId = getQueryParamByName('user_id'); // Extract the user_id from URL parameters
+                console.log("Extracted User ID:", userId);
+          
+                if (!userId) {
+                    alert("User ID is missing. Please ensure you're properly logged in.");
+                    return; // Exit early if user ID is not present
+                }
+          
+                document.getElementById('profile-form').addEventListener('submit', async function(event) {
+                    event.preventDefault(); // Prevent default form submission
+          
+                    const username = document.getElementById('username').value;
+                    const imageURL = document.getElementById('imageURL').value;
+          
+                    if (!await auth0.isAuthenticated()) {
+                        alert("You are not logged in. Please log in to proceed.");
+                        return; // Exit the function if not authenticated
+                    }
+          
+                    try {
+                        const accessToken = await auth0.getTokenSilently();
+                        await submitFormData(userId, username, imageURL, accessToken);
+                    } catch (error) {
+                        console.error('Error during registration:', error);
+                        alert('Error during registration. Please try again. ' + error.message);
+                    }
+                });
+            } else {
+                console.log("auth0 is not defined");
+                // Handle case where auth0 is not available
+                // Potentially redirect to a login page, or display an error message
             }
-      
-            document.getElementById('profile-form').addEventListener('submit', async function(event) {
-                event.preventDefault(); // Prevent default form submission
-      
-                const username = document.getElementById('username').value;
-                const imageURL = document.getElementById('imageURL').value;
-      
-                if (!await auth0.isAuthenticated()) {
-                    alert("You are not logged in. Please log in to proceed.");
-                    return; // Exit the function if not authenticated
-                }
-      
-                try {
-                    const accessToken = await auth0.getTokenSilently();
-                    await submitFormData(userId, username, imageURL, accessToken);
-                } catch (error) {
-                    console.error('Error during registration:', error);
-                    alert('Error during registration. Please try again. ' + error.message);
-                }
-            });
         });
       
         async function submitFormData(userId, username, imageURL, accessToken) {
